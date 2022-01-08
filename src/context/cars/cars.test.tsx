@@ -4,12 +4,6 @@ import CarContextProvider, { CarsContext } from './carsContext';
 
 jest.mock('../../utils/fetchCars.ts');
 
-const useCarsContext = () => {
-    const { cars, actions, carsToDisplay } = useContext(CarsContext);
-
-    return { cars, actions, carsToDisplay };
-};
-
 const carData = [
     {
         objectId: '1',
@@ -35,9 +29,12 @@ test('should set initial cars context', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result, waitForNextUpdate } = renderHook(() => useCarsContext(), {
-        wrapper,
-    });
+    const { result, waitForNextUpdate } = renderHook(
+        () => useContext(CarsContext),
+        {
+            wrapper,
+        }
+    );
 
     // set initial set of cars
     act(() => {
@@ -53,7 +50,7 @@ test('should add car to carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result } = renderHook(() => useCarsContext(), {
+    const { result } = renderHook(() => useContext(CarsContext), {
         wrapper,
     });
 
@@ -74,7 +71,7 @@ test('should add then remove car from carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result } = renderHook(() => useCarsContext(), {
+    const { result } = renderHook(() => useContext(CarsContext), {
         wrapper,
     });
 
