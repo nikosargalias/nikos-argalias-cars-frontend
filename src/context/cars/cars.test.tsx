@@ -34,9 +34,12 @@ test('should set initial cars context', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result } = renderHook(() => useCarsContext(), {
+    const { result, waitForNextUpdate } = renderHook(() => useCarsContext(), {
         wrapper,
     });
+
+    // await for initial fetch to complete
+    await waitForNextUpdate();
 
     // set initial set of cars
     act(() => {
