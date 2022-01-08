@@ -100,6 +100,54 @@ const DropDown = ({ message, onChange, id, options = [] }: DropdownProps) => {
         }
     }, [isExpanded, handleFocusOnDefaultOption]);
 
+    const handleFocusOnOption = useCallback(
+        (elems: HTMLLIElement[], next: 1 | -1) => {
+            const focusedElemIndex = elems.findIndex(
+                (el) => el === document.activeElement
+            );
+            let nextFocusElement: HTMLLIElement;
+            if (focusedElemIndex === 0 && next === -1) {
+                nextFocusElement = elems[elems.length - 1];
+            } else {
+                nextFocusElement =
+                    elems[(focusedElemIndex + next) % elems.length];
+            }
+            nextFocusElement.focus();
+
+            elems.forEach((el) => {
+                if (el === nextFocusElement) {
+                    el.setAttribute('tabindex', '0');
+                } else {
+                    el.setAttribute('tabindex', '-1');
+                }
+            });
+        },
+        []
+    );
+
+    const handleKeydown = useCallback(
+        (e) => {
+            if (e.key === 'Tab') {
+                setIsExpanded(false);
+            }
+            if (e.key.includes('Arrow')) e.preventDefault();
+
+            const elems = Array.from(
+                dropdownRef.current.children
+            ) as HTMLLIElement[];
+
+            switch (e.key) {
+                case 'ArrowLeft':
+                    handleFocusOnOption(elems, -1);
+                    return;
+                case 'ArrowRight':
+                    handleFocusOnOption(elems, 1);
+                    return;
+            }
+        },
+        [handleFocusOnOption]
+    );
+
     return (
         <StyledDropdown>
             <StyledDropdownButton
@@ -122,6 +170,7 @@ const DropDown = ({ message, onChange, id, options = [] }: DropdownProps) => {
                     role='listbox'
                     aria-labelledby='a11y-dropdown-label'
                     ref={dropdownRef}
+                    onKeyDown={handleKeydown}
                 >
                     {dropdownOptions}
                 </StyledSelect>
