@@ -1,0 +1,18 @@
+:root {
+    --gt-sm: 0.5rem;
+    --gt-md: 1rem;
+    --gt-lg: 2rem;
+}
+
+// The following if only here to demonstrate how theming could be added
+// if body contains this class
+body.dark {
+    --bg-primary: rgb(54, 54, 54);
+    --text-main: rgb(217, 217, 217);
+}
+
+// if body contains this class
+body.light {
+    --bg-primary: white;
+    --text-main: black;
+}

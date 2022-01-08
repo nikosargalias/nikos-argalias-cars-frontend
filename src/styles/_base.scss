@@ -1,0 +1,12 @@
+html *,
+html *::after,
+html *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 2rem;
+}
+
