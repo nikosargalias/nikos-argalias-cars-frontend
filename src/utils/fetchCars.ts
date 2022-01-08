@@ -1,3 +1,5 @@
+import { CarType } from '../types/CarsType';
+
 export const fetchCars = async (searchQuery?: string) => {
     const carMake: string = searchQuery ? `_${searchQuery}` : '';
 
@@ -12,6 +14,9 @@ export const fetchCars = async (searchQuery?: string) => {
             },
         }
     );
+
     const data = await response.json(); // Here you have the data that you need
-    return data.results;
+
+    const cars: CarType[] = data.results;
+    return cars;
 };
