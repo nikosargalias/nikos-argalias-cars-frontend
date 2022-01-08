@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 jest.mock('../../utils/fetchCars.ts');
 
 test('should render cars table with default data', async () => {
+    // Mocked the API so returns hard coded data (see src/utils/__mocks__/fetchCars.ts)
     render(<CarTable />, { wrapper: CarContextProvider });
 
     const AudiElement = await screen.findByText('Audi');
