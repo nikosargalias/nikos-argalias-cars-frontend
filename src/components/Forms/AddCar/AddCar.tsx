@@ -4,7 +4,7 @@ import StyledButton from '../../../shared/Button/Button.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { CarsContext } from '../../../context/cars/carsContext';
 
-const AddCar = ({ onChange, options }: any) => {
+const AddCar = () => {
     const [carModel, setCarModel] = useState('');
     const [carMake, setCarMake] = useState('');
     const [carYear, setCarYear] = useState('');
