@@ -1,11 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import CarContextProvider, { CarsContext } from './carsContext';
 
 jest.mock('../../utils/fetchCars.ts');
 
 const useCarsContext = () => {
     const { cars, actions, carsToDisplay } = useContext(CarsContext);
+
     return { cars, actions, carsToDisplay };
 };
 
@@ -30,34 +31,31 @@ const carData = [
     },
 ];
 
-test('should set initial cars context', async () => {
+test.only('should set initial cars context', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
     const { result, waitForNextUpdate } = renderHook(() => useCarsContext(), {
         wrapper,
     });
-
-    // await for initial fetch to complete
-    await waitForNextUpdate();
 
     // set initial set of cars
     act(() => {
         result.current.actions.initCars(carData);
     });
 
+    await waitForNextUpdate();
+
     expect(result.current.cars).toEqual(carData);
 });
 
-test('should add car to carsToDisplay', async () => {
+test.only('should add car to carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result, waitForNextUpdate } = renderHook(() => useCarsContext(), {
+    const { result } = renderHook(() => useCarsContext(), {
         wrapper,
     });
-
-    await waitForNextUpdate();
 
     // init car Data
     act(() => {
@@ -72,15 +70,13 @@ test('should add car to carsToDisplay', async () => {
     expect(result.current.carsToDisplay).toEqual(carData);
 });
 
-test('should add then remove car from carsToDisplay', async () => {
+test.only('should add then remove car from carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
-    const { result, waitForNextUpdate } = renderHook(() => useCarsContext(), {
+    const { result } = renderHook(() => useCarsContext(), {
         wrapper,
     });
-
-    await waitForNextUpdate();
 
     // init car Data
     act(() => {
