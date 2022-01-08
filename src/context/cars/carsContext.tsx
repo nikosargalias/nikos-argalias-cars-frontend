@@ -38,8 +38,6 @@ const CarContextProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     useEffect(() => {
-        console.log(cars);
-
         if (cars) {
             saveToLocalStorage(CARS_KEY, cars);
         }
