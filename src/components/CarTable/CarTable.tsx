@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { CarsContext } from '../../context/cars/carsContext';
 import Loading from '../Loading/Loading';
+import Button from '../../shared/Button/Button';
 import StyledTable from './CarTable.styled';
 
 const CarTable = () => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const { carsToDisplay } = useContext(CarsContext);
+    const {
+        carsToDisplay,
+        actions: { removeCar },
+    } = useContext(CarsContext);
 
     useEffect(() => {
         if (carsToDisplay.length > 0) {
@@ -24,10 +28,19 @@ const CarTable = () => {
                         <td>{Make}</td>
                         <td>{Model}</td>
                         <td>{Year}</td>
+                        <td>
+                            <Button
+                                onClick={() => {
+                                    removeCar(objectId);
+                                }}
+                            >
+                                Remove Car
+                            </Button>
+                        </td>
                     </tr>
                 );
             }),
-        [carsToDisplay]
+        [carsToDisplay, removeCar]
     );
 
     return (
@@ -39,6 +52,7 @@ const CarTable = () => {
                         <td>Make</td>
                         <td>Model</td>
                         <td>Year</td>
+                        <td>Remove Car</td>
                     </tr>
                 </thead>
                 <tbody>{CarComponents}</tbody>

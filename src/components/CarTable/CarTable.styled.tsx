@@ -20,6 +20,10 @@ const StyledTable = styled.table`
         border-bottom: 2px solid pink;
     }
 
+    thead tr {
+        width: 25%;
+    }
+
     th,
     td {
         padding: 0.5rem;
