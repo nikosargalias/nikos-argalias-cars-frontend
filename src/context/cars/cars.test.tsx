@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext } from 'react';
 import CarContextProvider, { CarsContext } from './carsContext';
 
 jest.mock('../../utils/fetchCars.ts');
@@ -31,7 +31,7 @@ const carData = [
     },
 ];
 
-test.only('should set initial cars context', async () => {
+test('should set initial cars context', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
@@ -49,7 +49,7 @@ test.only('should set initial cars context', async () => {
     expect(result.current.cars).toEqual(carData);
 });
 
-test.only('should add car to carsToDisplay', async () => {
+test('should add car to carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
@@ -70,7 +70,7 @@ test.only('should add car to carsToDisplay', async () => {
     expect(result.current.carsToDisplay).toEqual(carData);
 });
 
-test.only('should add then remove car from carsToDisplay', async () => {
+test('should add then remove car from carsToDisplay', async () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
         <CarContextProvider>{children}</CarContextProvider>
     );
