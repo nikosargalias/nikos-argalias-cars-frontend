@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { CarsContext } from '../../context/cars/carsContext';
-import Loading from '../Loading/Loading';
+import Loading from '../../shared/Loading/Loading';
 import Button from '../../shared/Button/Button';
 import { FiltersContext } from '../../context/filters/filtersContext';
 import { selectCarsBySorting } from '../../context/cars/carsSelectors';
