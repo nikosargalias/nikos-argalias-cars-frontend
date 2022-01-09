@@ -43,7 +43,7 @@ test('should set initial cars context', async () => {
 
     await waitForNextUpdate();
 
-    expect(result.current.cars).toEqual(carData);
+    expect(result.current.cachedCars).toEqual(carData);
 });
 
 test('should add car to carsToDisplay', async () => {
@@ -80,7 +80,7 @@ test('should add then remove car from carsToDisplay', async () => {
         result.current.actions.initCars(carData);
     });
 
-    expect(result.current.cars).toEqual(carData);
+    expect(result.current.cachedCars).toEqual(carData);
 
     // Add car to Context
     act(() => {

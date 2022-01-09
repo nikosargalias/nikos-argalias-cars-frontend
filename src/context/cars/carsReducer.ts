@@ -9,7 +9,7 @@ const carDataReducer = produce(
         switch (type) {
             case CarActionTypes.INIT_CARS:
                 if (Array.isArray(cars)) {
-                    draftState.cars = cars;
+                    draftState.cachedCars = cars;
                     draftState.carsToDisplay = cars;
                 }
                 break;
@@ -19,6 +19,7 @@ const carDataReducer = produce(
                         car,
                         ...draftState.carsToDisplay,
                     ];
+                    draftState.cachedCars = [car, ...draftState.cachedCars];
                 }
                 break;
             case CarActionTypes.REMOVE_CAR:
@@ -38,7 +39,5 @@ const carDataReducer = produce(
         }
     }
 );
-
-
 
 export default carDataReducer;

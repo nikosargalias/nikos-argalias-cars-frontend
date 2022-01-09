@@ -8,7 +8,7 @@ import { FiltersContext } from '../../../context/filters/filtersContext';
 
 const FilterCar = () => {
     const {
-        cars,
+        cachedCars,
         actions: { setCars },
     } = useContext(CarsContext);
 
@@ -16,14 +16,14 @@ const FilterCar = () => {
 
     const carOptions = useMemo(() => {
         /**The following code neds to conver the array into a set in order to remove duplicates, then convert it back into the data structure the Dropdown component expects */
-        const carMakes = cars.map(({ Make }) => Make);
+        const carMakes = cachedCars.map(({ Make }) => Make);
         carMakes.unshift('View All Cars');
         const carOptions = Array.from(new Set(carMakes)).map((option) => ({
             label: option,
         }));
 
         return carOptions;
-    }, [cars]);
+    }, [cachedCars]);
 
     const sortOptions = useMemo(
         () => [{ label: 'Make' }, { label: 'Date' }],
@@ -32,16 +32,18 @@ const FilterCar = () => {
 
     const handleSelectCar = useCallback(
         async (carMake: string) => {
-            const carIndex = cars.findIndex((car) => car.Make === carMake);
+            const carIndex = cachedCars.findIndex(
+                (car) => car.Make === carMake
+            );
 
             if (carIndex > -1) {
                 const filteredCars = await fetchCars(carMake);
                 setCars(filteredCars);
             } else {
-                setCars(cars);
+                setCars(cachedCars);
             }
         },
-        [cars, setCars]
+        [cachedCars, setCars]
     );
 
     const handleSetSortFilter = useCallback(

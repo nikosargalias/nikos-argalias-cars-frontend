@@ -1,7 +1,7 @@
 import { CarType } from '../../types/CarsType';
 
 export type InitialState = {
-    cars: CarType[];
+    cachedCars: CarType[];
     carsToDisplay: CarType[];
 };
 
@@ -29,7 +29,7 @@ export type DispatchActions = {
 };
 
 export type CarsContextState = {
-    cars: CarType[];
+    cachedCars: CarType[];
     actions: DispatchActions;
     carsToDisplay: CarType[];
 };
