@@ -1,52 +1,44 @@
 import { InitialState, CarActionTypes, CarAction } from './cars.types';
+import produce from 'immer';
 
-const carDataReducer = (
-    state: InitialState,
-    { type, payload: { cars, car, id } }: CarAction
-) => {
-    switch (type) {
-        case CarActionTypes.INIT_CARS:
-            if (Array.isArray(cars)) {
-                return {
-                    cars: cars,
-                    carsToDisplay: cars,
-                };
-            } else {
-                return state;
-            }
-
-        case CarActionTypes.ADD_CAR:
-            if (car) {
-                return {
-                    ...state,
-                    carsToDisplay: [car, ...state.carsToDisplay],
-                };
-            } else {
-                return state;
-            }
-        case CarActionTypes.REMOVE_CAR:
-            if (id) {
-                return {
-                    ...state,
-                    carsToDisplay: state.carsToDisplay.filter(
+const carDataReducer = produce(
+    (
+        draftState: InitialState,
+        { type, payload: { cars, car, id } }: CarAction
+    ) => {
+        switch (type) {
+            case CarActionTypes.INIT_CARS:
+                if (Array.isArray(cars)) {
+                    draftState.cars = cars;
+                    draftState.carsToDisplay = cars;
+                }
+                break;
+            case CarActionTypes.ADD_CAR:
+                if (car) {
+                    draftState.carsToDisplay = [
+                        car,
+                        ...draftState.carsToDisplay,
+                    ];
+                }
+                break;
+            case CarActionTypes.REMOVE_CAR:
+                if (id) {
+                    draftState.carsToDisplay = draftState.carsToDisplay.filter(
                         (car) => car.objectId !== id
-                    ),
-                };
-            } else {
-                return state;
-            }
-        case CarActionTypes.SET_CARS_TO_DISPLAY:
-            if (cars) {
-                return {
-                    ...state,
-                    carsToDisplay: cars,
-                };
-            } else {
-                return state;
-            }
-        default:
-            return state;
+                    );
+                }
+                break;
+            case CarActionTypes.SET_CARS_TO_DISPLAY:
+                if (cars) {
+                    draftState.carsToDisplay = cars;
+                }
+                break;
+            default:
+                break;
+        }
     }
-};
+);
+
+
 
 export default carDataReducer;
