@@ -7,6 +7,7 @@ import {
     saveToLocalStorage,
     loadFromLocalStorage,
 } from '../../utils/localStorage';
+import { fetchPhoneticWord } from '../../utils/fetchPhoneticWords';
 
 const CarsContext = createContext({} as CarsContextState);
 
@@ -22,6 +23,26 @@ const CarContextProvider = ({ children }: { children: React.ReactNode }) => {
         carDataReducer,
         InitialStateObj
     );
+
+    useEffect(() => {
+        if (carsToDisplay.find((car) => car.phonetic)) return;
+
+        if (carsToDisplay.length > 0) {
+            (async () => {
+                const carsWithPhoneticWordsPromise = carsToDisplay.map(
+                    (car) => {
+                        return fetchPhoneticWord(car.Model).then((data) => {
+                            return { ...car, phonetic: data[0].word };
+                        });
+                    }
+                );
+                const carsWithPhoneticWordsResolved = await Promise.all(
+                    carsWithPhoneticWordsPromise
+                );
+                dispatch(setCars(carsWithPhoneticWordsResolved));
+            })();
+        }
+    }, [carsToDisplay]);
 
     useEffect(() => {
         const carsFromLocalStorage = loadFromLocalStorage(CARS_KEY);

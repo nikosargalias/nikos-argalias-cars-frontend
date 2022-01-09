@@ -29,24 +29,33 @@ const CarTable = () => {
             ? selectCarsBySorting(carsToDisplay, filter)
             : carsToDisplay;
 
-        return filteredCars.map(({ objectId, Make, Model, Year }, i) => {
-            return (
-                <tr key={i}>
-                    <td>{Make}</td>
-                    <td>{Model}</td>
-                    <td>{Year}</td>
-                    <td>
-                        <Button
-                            onClick={() => {
-                                removeCar(objectId);
-                            }}
-                        >
-                            Remove Car
-                        </Button>
-                    </td>
-                </tr>
-            );
-        });
+        return filteredCars.map(
+            ({ objectId, Make, Model, Year, phonetic }, i) => {
+                return (
+                    <tr key={i}>
+                        <td>{Make}</td>
+                        <td>{Model}</td>
+                        <td>{Year}</td>
+                        <td>
+                            {phonetic ? (
+                                phonetic
+                            ) : (
+                                <Loading message='Loading phonetic words' />
+                            )}
+                        </td>
+                        <td>
+                            <Button
+                                onClick={() => {
+                                    removeCar(objectId);
+                                }}
+                            >
+                                Remove Car
+                            </Button>
+                        </td>
+                    </tr>
+                );
+            }
+        );
     }, [carsToDisplay, removeCar, filter]);
 
     return (
@@ -58,6 +67,7 @@ const CarTable = () => {
                         <td>Make</td>
                         <td>Model</td>
                         <td>Year</td>
+                        <td>Phonetic words</td>
                         <td>Remove Car</td>
                     </tr>
                 </thead>

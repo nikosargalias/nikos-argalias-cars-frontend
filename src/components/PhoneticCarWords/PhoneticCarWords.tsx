@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { CarsContext } from '../../context/cars/carsContext';
 import { selectCarModels } from '../../context/cars/carsSelectors';
-import fetchPhoneticWords from '../../utils/fetchPhoneticWords';
+import { fetchPhoneticWords } from '../../utils/fetchPhoneticWords';
 import PhoneticList from './PhoneticCarWords.styled';
 
 import { v4 as uuidv4 } from 'uuid';

@@ -6,4 +6,5 @@ export type CarType = {
     Category: string;
     createdAt: string;
     updatedAt: string;
+    phonetic?: string;
 };
