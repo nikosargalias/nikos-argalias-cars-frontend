@@ -24,6 +24,7 @@ const CarContextProvider = ({ children }: { children: React.ReactNode }) => {
         InitialStateObj
     );
 
+    // The purpose for fetching the phonetic words in the the useEffect here is so that the cars can render immediately as soon as they come back fgrom the API. following that, we fetch the phonetic words and update the context when they are fetched, triggering a rerender. This makes for the most performant initial render time.
     useEffect(() => {
         if (carsToDisplay.find((car) => car.phonetic)) return;
 
