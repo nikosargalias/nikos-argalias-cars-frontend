@@ -61,18 +61,20 @@ const CarTable = () => {
     return (
         <div>
             {!isLoading && <Loading message='Loading cars' />}
-            <StyledTable>
-                <thead>
-                    <tr>
-                        <td>Make</td>
-                        <td>Model</td>
-                        <td>Year</td>
-                        <td>Phonetic words</td>
-                        <td>Remove Car</td>
-                    </tr>
-                </thead>
-                <tbody>{CarComponents}</tbody>
-            </StyledTable>
+            {isLoading && (
+                <StyledTable>
+                    <thead>
+                        <tr>
+                            <td>Make</td>
+                            <td>Model</td>
+                            <td>Year</td>
+                            <td>Phonetic words</td>
+                            <td>Remove Car</td>
+                        </tr>
+                    </thead>
+                    <tbody>{CarComponents}</tbody>
+                </StyledTable>
+            )}
         </div>
     );
 };
