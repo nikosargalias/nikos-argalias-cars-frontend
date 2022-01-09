@@ -22,7 +22,7 @@ For this project I decided to search for (and utilise) a (car data fetching API)
 -   Ability to sort cars in alphabetical order by 'Make'
 -   Ability to sort cars in by Year created
 -   Ability to fetch a new list of cars of a specific Make via a dropdown button.
--   Fetching of words which sounds phonetically the same as the car models in the displayed list - this is using the datamuse API listed in the test description.
+-   Fetching of words which sound phonetically similar to each car model and rendering them in an additioinal column - this is using the datamuse API listed in the test description.
 
 ## Project architecture
 
@@ -47,6 +47,10 @@ I'm a big advocate for scalable css, and in order to achieve that in the past, I
 ## Mobile Responsive Considerations
 
 I have implemented some media queries to showcase my ability to use them appropriately. However, due to the time crunch for building this application, I didn't focus much on mobile responsiveness as I I dedicated more time towards testing, React and TypeScript, and ensuring all of the features work.
+
+## Performance considerations
+
+I made sure to implement some best practices regarding React performance such as useCallback and useMemo hooks for memoisation of values and functions. In addition, I ensured a Loading component was displayed as the data was fetched. I also ensured that the cars are initially rendered as soon as they are fetched from the API, and then the DOM updates again once the phonetic words are fetched - this is to ensure a faster initial render time of cars.
 
 ## create-react-app
 
