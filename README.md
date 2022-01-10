@@ -13,7 +13,9 @@ In order to run the test suite please run:
 
 ## IMPORTANT Details about the project and decisions I made
 
-For this project I decided to search for (and utilise) a (car data fetching API)[https://www.back4app.com/database/back4app/car-make-model-dataset/get-started/javascript/rest-api/fetch]. The reason for this is that I thought it would be better, faster, and more realistic compared to a read application to fetch car data from an API rather than write my own array of car objects. As a result, due to the key/value pairs of each car object returned by the API, you will notice that there is no 'colour' property as the API doesn't return one, and I didn't want to add a fake colour property to each car. Nevertheless, I ensured that all of the following features were implemented:
+For this project I decided to search for (and utilise) a (car data fetching API)[https://www.back4app.com/database/back4app/car-make-model-dataset/get-started/javascript/rest-api/fetch]. The reason for this is that I thought it would be better, faster, and more realistic compared to a read application to fetch car data from an API rather than write my own array of car objects. As a result, due to the key/value pairs of each car object returned by the API, you will notice that there is no 'colour' property as the API doesn't return one, and I didn't want to add a fake colour property to each car. I also want to emphesise that I would never deviate from the stories assigned in a work environment (as I did with the use of the car fetching API), I only did so in this case in the hope that it demonstrates some further ability to work with RESTFUL APIs, and fetching of data. 
+
+I ensured that all of the following features were implemented:
 
 -   Fetching cars from a database and rendering them in a table.
 -   Storing fetched cars in localStorage so fetching them again isn't required, making load times much quicker for returning users.
