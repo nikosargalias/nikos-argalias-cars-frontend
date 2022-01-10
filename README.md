@@ -50,12 +50,12 @@ I have implemented some media queries to showcase my ability to use them appropr
 
 ## Performance considerations
 
-I made sure to implement some best practices regarding React performance such as useCallback and useMemo hooks for memoisation of values and functions. In addition, I ensured a Loading component was displayed as the data was fetched. I also ensured that the cars are initially rendered as soon as they are fetched from the API, and then the DOM updates again once the phonetic words are fetched - this is to ensure a faster initial render time of cars.
+I made sure to implement some best practices regarding React performance such as useCallback and useMemo hooks for memoization of values and functions. In addition, I ensured a Loading component was displayed as the data was fetched. I also ensured that the cars are initially rendered as soon as they are fetched from the API, and then the DOM updates again once the phonetic words are fetched - this is to ensure a faster initial render time of cars. In addition. I utilised the reselect utility for memoized selectors. 
 
 ## create-react-app
 
-Whereas in the past I have created my own configuration boilerplate for React applications, due to the time I had to spend on this project I decided to use Create-React-App which comes with a great starting point boilerplate.
+Whereas in the past I have created my own configuration boilerplate for React applications, due to the time I had to spend on this project I decided to use Create-React-App which comes with a great default configuration setup.
 
 ## Final thoughts
 
-Please be aware that in a real life project, I would take longer with each feature/story, ensuring proper test coverage, well though out architecture and the best code practices. While I did my best to showcase my ability, as this project was definitely built in a short time crunch, it doesn't reflect the quality of work I would aim to achieve in a real production environment.
+Please be aware that in a real life project, I would take longer with each feature/story, ensuring proper test coverage, well though out architecture and the best code practices. While I did my best to showcase my ability, as this project was built in a short time crunch, it doesn't reflect the quality of work I would aim to achieve in a real production environment.
