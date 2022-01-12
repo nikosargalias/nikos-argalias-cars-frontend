@@ -3,8 +3,6 @@ export type CarType = {
     Year: number;
     Make: string;
     Model: string;
-    Category: string;
-    createdAt: string;
-    updatedAt: string;
+    Colour: string;
     phonetic?: string;
 };

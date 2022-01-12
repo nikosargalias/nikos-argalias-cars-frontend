@@ -10,18 +10,14 @@ const carData = [
         Year: 2020,
         Make: 'Audi',
         Model: 'A3',
-        Category: 'Hatchback',
-        createdAt: '0',
-        updatedAt: '0',
+        Colour: '',
     },
     {
         objectId: '2',
         Year: 2020,
         Make: 'Mercedes',
         Model: 'A200',
-        Category: 'Hatchback',
-        createdAt: '0',
-        updatedAt: '0',
+        Colour: '',
     },
 ];
 

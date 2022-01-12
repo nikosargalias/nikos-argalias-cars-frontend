@@ -30,12 +30,13 @@ const CarTable = () => {
             : carsToDisplay;
 
         return filteredCars.map(
-            ({ objectId, Make, Model, Year, phonetic }, i) => {
+            ({ objectId, Make, Model, Year, phonetic, Colour }, i) => {
                 return (
                     <tr key={i}>
                         <td>{Make}</td>
                         <td>{Model}</td>
                         <td>{Year}</td>
+                        <td>{Colour}</td>
                         <td>
                             {phonetic ? (
                                 phonetic
@@ -60,7 +61,7 @@ const CarTable = () => {
 
     return (
         <div>
-            {!isLoading && <Loading message='Loading cars' />}
+            {!isLoading && <p>Please Add a car</p>}
             {isLoading && (
                 <StyledTable>
                     <thead>
@@ -68,6 +69,7 @@ const CarTable = () => {
                             <td>Make</td>
                             <td>Model</td>
                             <td>Year</td>
+                            <td>Colour</td>
                             <td>Phonetic words</td>
                             <td>Remove Car</td>
                         </tr>

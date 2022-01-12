@@ -9,7 +9,7 @@ const AddCar = () => {
     const [carModel, setCarModel] = useState('');
     const [carMake, setCarMake] = useState('');
     const [carYear, setCarYear] = useState('');
-    const [carCategory, setCarCategory] = useState('');
+    const [carColour, setCarColour] = useState('');
     const {
         actions: { addCar },
     } = useContext(CarsContext);
@@ -28,19 +28,19 @@ const AddCar = () => {
                 Year: new Date(carYear).getFullYear(),
                 Make: carMake,
                 Model: carModel,
-                Category: carCategory,
-                createdAt: new Date().getTime().toString(),
-                updatedAt: new Date().getTime().toString(),
+                Colour: carColour,
                 phonetic: phoneticWordData[0].word,
             };
             addCar(car);
             setCarModel('');
             setCarMake('');
             setCarYear('');
-            setCarCategory('');
+            setCarColour('');
         },
-        [addCar, carCategory, carModel, carMake, carYear]
+        [addCar, carColour, carModel, carMake, carYear]
     );
+
+    const currentYear = useMemo(() => new Date().getFullYear(), []);
 
     return (
         <StyledForm onSubmit={(e) => handleAddCar(e)}>
@@ -65,20 +65,23 @@ const AddCar = () => {
             <div className='grp'>
                 <label htmlFor={carYearId}>Car Year</label>
                 <input
-                    type='date'
                     id={carYearId}
                     value={carYear}
                     onChange={(e) => setCarYear(e.target.value)}
                     data-testid='date-picker'
+                    type='number'
+                    min='1990'
+                    max={`${currentYear}`}
+                    title={`Must be a year from 1990 to ${currentYear}`}
                 />
             </div>
             <div className='grp'>
-                <label htmlFor={carCategoryId}>Car Category</label>
+                <label htmlFor={carCategoryId}>Car Colour</label>
                 <input
                     type='text'
                     id={carCategoryId}
-                    value={carCategory}
-                    onChange={(e) => setCarCategory(e.target.value)}
+                    value={carColour}
+                    onChange={(e) => setCarColour(e.target.value)}
                 />
             </div>
             <StyledButton>Add car</StyledButton>
