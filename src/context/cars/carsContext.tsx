@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useEffect, useMemo } from 'react';
-import { fetchCars } from '../../utils/fetchCars';
 import { InitialState, CarsContextState, DispatchActions } from './cars.types';
 import { addCar, initCars, removeCar, setCars } from './carsActions';
 import carDataReducer from './carsReducer';
@@ -68,11 +67,6 @@ const CarContextProvider = ({ children }: { children: React.ReactNode }) => {
             if (carsFromLocalStorage.length) {
                 actions.initCars(carsFromLocalStorage);
             }
-        } else {
-            (async () => {
-                const cars = await fetchCars();
-                actions.initCars(cars);
-            })();
         }
     }, [actions]);
 
