@@ -3,7 +3,7 @@ import StyledForm from '../../../shared/Form/Form.styled';
 import StyledButton from '../../../shared/Button/Button.styled';
 import { v4 as uuidv4 } from 'uuid';
 import { CarsContext } from '../../../context/cars/carsContext';
-import { fetchPhoneticWord } from '../../../utils/fetchPhoneticWords';
+import { fetchPhoneticWords } from '../../../utils/fetchPhoneticWords';
 
 const AddCar = () => {
     const [carModel, setCarModel] = useState('');
@@ -22,7 +22,7 @@ const AddCar = () => {
     const handleAddCar = useCallback(
         async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            const phoneticWordData = await fetchPhoneticWord(carModel);
+            const phoneticWordData = await fetchPhoneticWords(carModel);
             const car = {
                 objectId: uuidv4(),
                 Year: new Date(carYear).getFullYear(),

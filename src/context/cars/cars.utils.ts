@@ -1,5 +1,5 @@
 import { CarType } from '../../types/CarsType';
-import { fetchPhoneticWord } from '../../utils/fetchPhoneticWords';
+import { fetchPhoneticWords } from '../../utils/fetchPhoneticWords';
 
 export const addPhoneticWordsToCars = async (
     cars: CarType[],
@@ -7,7 +7,7 @@ export const addPhoneticWordsToCars = async (
 ) => {
     (async () => {
         const carsWithPhoneticWordsPromise = cars.map((car) => {
-            return fetchPhoneticWord(car.Model).then((data) => {
+            return fetchPhoneticWords(car.Model).then((data) => {
                 return { ...car, phonetic: data[0].word };
             });
         });
@@ -17,5 +17,3 @@ export const addPhoneticWordsToCars = async (
         cb(carsWithPhoneticWordsResolved);
     })();
 };
-
-
