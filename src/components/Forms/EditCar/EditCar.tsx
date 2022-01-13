@@ -11,12 +11,17 @@ import StyledButton from '../../../shared/Button/Button.styled';
 import StyledForm from '../../../shared/Form/Form.styled';
 import { CarType } from '../../../types/CarsType';
 import { generateRandomId } from '../../../utils/generateRandomId';
+import { testInputPattern } from './EditCar.util';
 
 type EditCarProps = {
     carId: string;
     handleEditCar: (car: CarType) => void;
     handleCancelEditCar: () => void;
 };
+
+const carMakeRegex = /^[a-zA-Z]+$/;
+const carModelRegex = /[A-Za-z0-9]*/;
+const carColourRegex = /[a-zA-Z]*\s?[a-zA-Z]*/;
 
 const EditCar = ({
     carId,
@@ -32,10 +37,12 @@ const EditCar = ({
     const [colour, setCarColour] = useState('');
 
     useEffect(() => {
-        setCarModel(car.model);
-        setCarMake(car.make);
-        setCarYear(car.year);
-        setCarColour(car.colour);
+        if (car) {
+            setCarModel(car.model);
+            setCarMake(car.make);
+            setCarYear(car.year);
+            setCarColour(car.colour);
+        }
     }, [car]);
 
     const makeId = useMemo(() => generateRandomId(), []);
@@ -48,6 +55,13 @@ const EditCar = ({
     const onSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
+            if (
+                testInputPattern(model, carModelRegex) ||
+                testInputPattern(make, carMakeRegex) ||
+                testInputPattern(colour, carColourRegex)
+            )
+                return;
+
             const updatedCar = { ...car, make, model, year, colour };
             handleEditCar(updatedCar);
         },
@@ -55,7 +69,7 @@ const EditCar = ({
     );
 
     return (
-        <StyledForm onSubmit={onSubmit}>
+        <StyledForm role='form' onSubmit={onSubmit}>
             <div className='grp'>
                 <label htmlFor={makeId}>Car Make</label>
                 <input
@@ -100,7 +114,7 @@ const EditCar = ({
                 />
             </div>
             <div className='grp space-between'>
-                <StyledButton>Edit car</StyledButton>
+                <StyledButton type='submit'>Edit car</StyledButton>
                 <StyledButton type='button' onClick={handleCancelEditCar}>
                     Cancel
                 </StyledButton>
