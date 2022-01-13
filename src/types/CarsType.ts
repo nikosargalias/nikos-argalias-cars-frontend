@@ -1,8 +1,8 @@
 export type CarType = {
-    objectId: string;
-    Year: number;
-    Make: string;
-    Model: string;
-    Colour: string;
+    id: string;
+    year: string;
+    make: string;
+    model: string;
+    colour: string;
     phonetic?: string;
 };
