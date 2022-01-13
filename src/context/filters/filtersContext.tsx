@@ -1,23 +1,37 @@
-import React, { createContext, useState } from 'react';
-
-type filterType = 'make' | 'date';
+import React, { createContext, useReducer } from 'react';
+import { setMake, setSort } from './filters.actions';
+import filterReducer from './filters.reducer';
+import { actions, filterState } from './filters.types';
 
 const FiltersContext = createContext(
     {} as {
-        filter: filterType;
-        setFilter: (filter: filterType) => void;
+        filters: filterState;
+        actions: actions;
     }
 );
+
+const initialReducerState = {
+    sort: '',
+    make: '',
+};
 
 const FiltersContextProvider = ({
     children,
 }: {
     children: React.ReactNode;
 }) => {
-    const [filter, setFilter] = useState('' as filterType);
+    const [filters, dispatch] = useReducer(
+        filterReducer,
+        initialReducerState as filterState
+    );
+
+    const actions: actions = {
+        setMake: (make) => dispatch(setMake(make)),
+        setSort: (sort) => dispatch(setSort(sort)),
+    };
 
     return (
-        <FiltersContext.Provider value={{ filter, setFilter }}>
+        <FiltersContext.Provider value={{ filters, actions }}>
             {children}
         </FiltersContext.Provider>
     );
