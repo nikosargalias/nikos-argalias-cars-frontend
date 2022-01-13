@@ -6,6 +6,11 @@ export const addCar = (car: CarType) => ({
     payload: { car },
 });
 
+export const editCar = (car: CarType) => ({
+    type: CarActionTypes.EDIT_CAR,
+    payload: { car },
+});
+
 export const initCars = (cars: CarType[]) => ({
     type: CarActionTypes.INIT_CARS,
     payload: { cars },

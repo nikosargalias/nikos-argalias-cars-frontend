@@ -22,10 +22,22 @@ const carDataReducer = produce(
                     draftState.cachedCars = [car, ...draftState.cachedCars];
                 }
                 break;
+            case CarActionTypes.EDIT_CAR:
+                if (car) {
+                    draftState.carsToDisplay = draftState.carsToDisplay.map(
+                        (c) => {
+                            return c.id !== car.id ? c : car;
+                        }
+                    );
+                    draftState.cachedCars = draftState.cachedCars.map((c) => {
+                        return c.id !== car.id ? c : car;
+                    });
+                }
+                break;
             case CarActionTypes.REMOVE_CAR:
                 if (id) {
                     draftState.carsToDisplay = draftState.carsToDisplay.filter(
-                        (car) => car.objectId !== id
+                        (car) => car.id !== id
                     );
                 }
                 break;
