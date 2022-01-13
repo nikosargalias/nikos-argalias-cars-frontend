@@ -42,7 +42,9 @@ const AddCar = () => {
                 make: carMake,
                 model: carModel,
                 colour: carColour,
-                phonetic: phoneticWordData[0].word,
+                phonetic: phoneticWordData
+                    .map((arr: any) => arr.word)
+                    .join(', '),
             };
             addCar(car);
             setCarModel('');
