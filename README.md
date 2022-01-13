@@ -11,20 +11,35 @@ In order to run the test suite please run:
 -   npm test
 -   -   This launches the test runner in the interactive watch mode.\
 
-## IMPORTANT Details about the project and decisions I made
+## Important
 
-For this project I decided to search for (and utilise) a (car data fetching API)[https://www.back4app.com/database/back4app/car-make-model-dataset/get-started/javascript/rest-api/fetch]. The reason for this is that I thought it would be better, faster, and more realistic compared to a read application to fetch car data from an API rather than write my own array of car objects. As a result, due to the key/value pairs of each car object returned by the API, you will notice that there is no 'colour' property as the API doesn't return one, and I didn't want to add a fake colour property to each car. I also want to emphesise that I would never deviate from the stories assigned in a work environment (as I did with the use of the car fetching API), I only did so in this case in the hope that it demonstrates some further ability to work with RESTFUL APIs, and fetching of data. 
+A few further considerations I would take for a client project:
 
-I ensured that all of the following features were implemented:
+-   I would ensure much higher test coverage. In this project I added sufficient tests to showcase my ability to Jest and React testing library. However, in a production evironment, I would either take a TDD approach where the spec is outlined in tests first, and then you build each feature, or at the very least, I would ensure a near 100% test coverage of every component, function and feature.
+-   I would design the proper architecture and directory structure in advasnce of building the project based on the scale, requirements and stories of the project. In this project, I used fairly common practices, but due to the small nature of the project, I again opted to utlilise fairly common directory structure for storing context, layout elements and components.
+-   I would ensure more use of the 'Rule of Three' principle, some Components share functionality, but it has not been extracted into a shared module. Once again, this is due to the time constraints of the project. I would ensure to spend sufficient time make the code clean, (easy to read), yet consise.
+-   I would ensure every story is built on a new feature branch. This project doesn't utilise this practice, once again due to the speed upon which I had to build it, and not spending the proper time to think about how to structure each branch for each feature.
+-   Finally, I would like to emphasize, a project properly architected from the ground up, with the best practices implemented, would take multiple days, compared to a few hours in order to build. This is the reason behind the slightly rushed nature of this. Unfortunately due to my full time job, amongst other things, I was not able to spend more than a few hours building this, but I opted to try and showcase a little of my ability from various aspects of frontend, and also meet the spec requirements.
 
--   Fetching cars from a database and rendering them in a table.
--   Storing fetched cars in localStorage so fetching them again isn't required, making load times much quicker for returning users.
+Whatever happpens, I very much appreciate your time reviewing this project.
+
+## Spec requirements met
+
+-   Caching added cars to localStorage
+-   Storing cached cars in localStorage so fetching them again isn't required, making load times much quicker for returning users.
 -   Ability to add cars to the list via a form
 -   Ability to remove cars
 -   Ability to sort cars in alphabetical order by 'Make'
 -   Ability to sort cars in by Year created
 -   Ability to fetch a new list of cars of a specific Make via a dropdown button.
 -   Fetching of words which sound phonetically similar to each car model and rendering them in an additioinal column - this is using the datamuse API listed in the test description.
+-   Ability to edit cars after they have been added.
+-   Pattern regognition via the use of regex for the add car form and the edit car form.
+-   -   In particular:
+-   -   -   Make can only be one work of letters.
+-   -   -   Model can be only be one word of letters and numbers.
+-   -   -   Colour can be up to two words of letters.
+-   -   -   using the Pattern attribute of the input element, I also ensured that the year can only be from 1990 to the current year (refernced via a variable which automatically identifies the current year).
 
 ## Project architecture
 
@@ -52,7 +67,7 @@ I have implemented some media queries to showcase my ability to use them appropr
 
 ## Performance considerations
 
-I made sure to implement some best practices regarding React performance such as useCallback and useMemo hooks for memoization of values and functions. In addition, I ensured a Loading component was displayed as the data was fetched. I also ensured that the cars are initially rendered as soon as they are fetched from the API, and then the DOM updates again once the phonetic words are fetched - this is to ensure a faster initial render time of cars. In addition. I utilised the reselect utility for memoized selectors. 
+I made sure to implement some best practices regarding React performance such as useCallback and useMemo hooks for memoization of values and functions. In addition, I ensured a Loading component was displayed as the data was fetched. I also ensured that the cars are initially rendered as soon as they are fetched from the API, and then the DOM updates again once the phonetic words are fetched - this is to ensure a faster initial render time of cars. In addition. I utilised the reselect utility for memoized selectors.
 
 ## create-react-app
 
