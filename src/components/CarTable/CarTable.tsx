@@ -3,10 +3,10 @@ import { CarsContext } from '../../context/cars/carsContext';
 import Loading from '../../shared/Loading/Loading';
 import Button from '../../shared/Button/Button';
 import { FiltersContext } from '../../context/filters/filtersContext';
-import { selectCarsBySorting } from '../../context/cars/carsSelectors';
+import { selectCarsByFilters } from '../../context/cars/carsSelectors';
 import StyledTable from './CarTable.styled';
 
-const CarTable = () => {
+const CarTable = ({ onEdit }: { onEdit: (id: string) => void }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const {
@@ -14,7 +14,7 @@ const CarTable = () => {
         actions: { removeCar },
     } = useContext(CarsContext);
 
-    const { filter } = useContext(FiltersContext);
+    const { filters } = useContext(FiltersContext);
 
     useEffect(() => {
         if (carsToDisplay.length > 0) {
@@ -25,18 +25,18 @@ const CarTable = () => {
     }, [carsToDisplay]);
 
     const CarComponents = useMemo(() => {
-        let filteredCars = filter
-            ? selectCarsBySorting(carsToDisplay, filter)
+        let filteredCars = filters
+            ? selectCarsByFilters(carsToDisplay, filters)
             : carsToDisplay;
 
         return filteredCars.map(
-            ({ objectId, Make, Model, Year, phonetic, Colour }, i) => {
+            ({ id, make, model, year, phonetic, colour }, i) => {
                 return (
                     <tr key={i}>
-                        <td>{Make}</td>
-                        <td>{Model}</td>
-                        <td>{Year}</td>
-                        <td>{Colour}</td>
+                        <td>{make}</td>
+                        <td>{model}</td>
+                        <td>{year}</td>
+                        <td>{colour}</td>
                         <td>
                             {phonetic ? (
                                 phonetic
@@ -47,17 +47,26 @@ const CarTable = () => {
                         <td>
                             <Button
                                 onClick={() => {
-                                    removeCar(objectId);
+                                    removeCar(id);
                                 }}
                             >
                                 Remove Car
+                            </Button>
+                        </td>
+                        <td>
+                            <Button
+                                onClick={() => {
+                                    onEdit(id);
+                                }}
+                            >
+                                Edit
                             </Button>
                         </td>
                     </tr>
                 );
             }
         );
-    }, [carsToDisplay, removeCar, filter]);
+    }, [carsToDisplay, removeCar, filters, onEdit]);
 
     return (
         <div>
@@ -72,6 +81,7 @@ const CarTable = () => {
                             <td>Colour</td>
                             <td>Phonetic words</td>
                             <td>Remove Car</td>
+                            <td>Edit</td>
                         </tr>
                     </thead>
                     <tbody>{CarComponents}</tbody>
