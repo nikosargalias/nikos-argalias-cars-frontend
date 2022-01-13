@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import StyledForm from '../../../shared/Form/Form.styled';
 import StyledButton from '../../../shared/Button/Button.styled';
-import { v4 as uuidv4 } from 'uuid';
 import { CarsContext } from '../../../context/cars/carsContext';
 import { fetchPhoneticWords } from '../../../utils/fetchPhoneticWords';
+import { generateRandomId } from '../../../utils/generateRandomId';
 
 const AddCar = () => {
     const [carModel, setCarModel] = useState('');
@@ -14,21 +14,21 @@ const AddCar = () => {
         actions: { addCar },
     } = useContext(CarsContext);
 
-    const carMakeId = useMemo(() => uuidv4(), []);
-    const carModelId = useMemo(() => uuidv4(), []);
-    const carYearId = useMemo(() => uuidv4(), []);
-    const carCategoryId = useMemo(() => uuidv4(), []);
+    const carMakeId = useMemo(() => generateRandomId(), []);
+    const carModelId = useMemo(() => generateRandomId(), []);
+    const carYearId = useMemo(() => generateRandomId(), []);
+    const carCategoryId = useMemo(() => generateRandomId(), []);
 
     const handleAddCar = useCallback(
         async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             const phoneticWordData = await fetchPhoneticWords(carModel);
             const car = {
-                objectId: uuidv4(),
-                Year: new Date(carYear).getFullYear(),
-                Make: carMake,
-                Model: carModel,
-                Colour: carColour,
+                id: generateRandomId(),
+                year: new Date(carYear).getFullYear().toString(),
+                make: carMake,
+                model: carModel,
+                colour: carColour,
                 phonetic: phoneticWordData[0].word,
             };
             addCar(car);
@@ -51,6 +51,7 @@ const AddCar = () => {
                     id={carMakeId}
                     value={carMake}
                     onChange={(e) => setCarMake(e.target.value)}
+                    pattern='^[a-zA-Z]+$'
                 />
             </div>
             <div className='grp'>
@@ -60,6 +61,7 @@ const AddCar = () => {
                     id={carModelId}
                     value={carModel}
                     onChange={(e) => setCarModel(e.target.value)}
+                    pattern='[A-Za-z0-9]*'
                 />
             </div>
             <div className='grp'>
@@ -70,7 +72,7 @@ const AddCar = () => {
                     onChange={(e) => setCarYear(e.target.value)}
                     data-testid='date-picker'
                     type='number'
-                    min='1990'
+                    min='1900'
                     max={`${currentYear}`}
                     title={`Must be a year from 1990 to ${currentYear}`}
                 />
@@ -82,6 +84,7 @@ const AddCar = () => {
                     id={carCategoryId}
                     value={carColour}
                     onChange={(e) => setCarColour(e.target.value)}
+                    pattern='[a-zA-Z]*\s?[a-zA-Z]*'
                 />
             </div>
             <StyledButton>Add car</StyledButton>

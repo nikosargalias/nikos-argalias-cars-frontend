@@ -10,8 +10,8 @@ test('should render AddCar form correctly and ensure inputs are working', async 
     const carMakeInput = screen.getByRole('textbox', { name: 'Car Make' });
     const carModelInput = screen.getByRole('textbox', { name: 'Car Model' });
     const carYearInput = screen.getByTestId('date-picker');
-    const carCategoryInput = screen.getByRole('textbox', {
-        name: 'Car Category',
+    const carColourInput = screen.getByRole('textbox', {
+        name: 'Car Colour',
     });
 
     // asserting inputs work correctly
@@ -19,10 +19,10 @@ test('should render AddCar form correctly and ensure inputs are working', async 
     expect(carMakeInput).toHaveValue('Merc');
     userEvent.type(carModelInput, 'A200');
     expect(carModelInput).toHaveValue('A200');
-    userEvent.type(carYearInput, '2022-01-07');
-    expect(carYearInput).toHaveValue('2022-01-07');
-    userEvent.type(carCategoryInput, 'Hatchback');
-    expect(carCategoryInput).toHaveValue('Hatchback');
+    userEvent.type(carYearInput, '2022');
+    expect(carYearInput).toHaveValue(2022);
+    userEvent.type(carColourInput, 'Hatchback');
+    expect(carColourInput).toHaveValue('Hatchback');
 
     // asserting button has rendered corerctly
     const submitButton = screen.getByRole('button', { name: 'Add car' });
