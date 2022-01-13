@@ -143,6 +143,12 @@ const DropDown = ({ message, onChange, id, options = [] }: DropdownProps) => {
                 case 'ArrowRight':
                     handleFocusOnOption(elems, 1);
                     return;
+                case 'Escape':
+                    setIsExpanded(false);
+                    return;
+                case 'Tab':
+                    setIsExpanded(false);
+                    return;
             }
         },
         [handleFocusOnOption]
