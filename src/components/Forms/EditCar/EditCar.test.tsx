@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CarContextProvider from '../../../context/cars/carsContext';
 import EditCar from './EditCar';
@@ -58,6 +58,7 @@ test('should fail to submit due to invalid Make input value', () => {
     userEvent.click(submitButton);
     expect(handleEditCar).toHaveBeenCalledTimes(0);
 });
+
 test('should succeessfully submit form due to valid input values', () => {
     const handleEditCar = jest.fn();
     render(
@@ -97,5 +98,5 @@ test('should succeessfully submit form due to valid input values', () => {
     // submitting form
     const submitButton = screen.getByRole('button', { name: 'Edit car' });
     userEvent.click(submitButton);
-    expect(handleEditCar).toHaveBeenCalledTimes(0);
+    expect(handleEditCar).toHaveBeenCalledTimes(1);
 });

@@ -4,6 +4,12 @@ import StyledButton from '../../../shared/Button/Button.styled';
 import { CarsContext } from '../../../context/cars/carsContext';
 import { fetchPhoneticWords } from '../../../utils/fetchPhoneticWords';
 import { generateRandomId } from '../../../utils/generateRandomId';
+import {
+    carColourRegex,
+    carMakeRegex,
+    carModelRegex,
+    carRegexValidation,
+} from '../utils/carRegexValidation';
 
 const AddCar = () => {
     const [carModel, setCarModel] = useState('');
@@ -22,6 +28,13 @@ const AddCar = () => {
     const handleAddCar = useCallback(
         async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
+            if (
+                !carRegexValidation(carMake, carMakeRegex) ||
+                !carRegexValidation(carModel, carModelRegex) ||
+                !carRegexValidation(carColour, carColourRegex)
+            )
+                return;
+
             const phoneticWordData = await fetchPhoneticWords(carModel);
             const car = {
                 id: generateRandomId(),
