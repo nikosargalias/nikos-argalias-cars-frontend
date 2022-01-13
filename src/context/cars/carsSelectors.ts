@@ -1,26 +1,36 @@
 import { createSelector } from 'reselect';
 import { CarType } from '../../types/CarsType';
+import { filterState } from '../filters/filters.types';
 
 const cars = (state: CarType[]) => state;
-const sort = (state: CarType[], sort: 'make' | 'date') => sort;
+const carId = (state: CarType[], carId: string) => carId;
+const filters = (state: CarType[], filters: filterState) => filters;
 
-const selectCarsBySorting = createSelector([cars, sort], (cars, sort) => {
-    const draftState: CarType[] = JSON.parse(JSON.stringify(cars));
+const selectCarById = createSelector([cars, carId], (cars, carId) => {
+    return cars.find((car) => car.id === carId);
+});
 
-    switch (sort) {
-        case 'make':
-            return draftState.sort((a: CarType, b: CarType) =>
-                a.Make < b.Make ? -1 : 1
-            );
-        case 'date':
-            return draftState.sort((a: CarType, b: CarType) =>
-                a.Year < b.Year ? -1 : 1
-            );
+const selectCarsByFilters = createSelector(
+    [cars, filters],
+    (cars, { make, sort }) => {
+        const draftState: CarType[] = JSON.parse(JSON.stringify(cars));
+        const filteredByMakeCars = make
+            ? draftState.filter((c) => c.make === make)
+            : draftState;
+
+        switch (sort) {
+            case 'make':
+                return filteredByMakeCars.sort((a: CarType, b: CarType) =>
+                    a.make < b.make ? -1 : 1
+                );
+            case 'date':
+                return filteredByMakeCars.sort((a: CarType, b: CarType) =>
+                    a.year < b.year ? -1 : 1
+                );
+            default:
+                return filteredByMakeCars;
+        }
     }
-});
+);
 
-const selectCarModels = createSelector(cars, (cars: CarType[]) => {
-    return cars.map((car) => car.Model);
-});
-
-export { selectCarsBySorting, selectCarModels };
+export { selectCarById, selectCarsByFilters };
