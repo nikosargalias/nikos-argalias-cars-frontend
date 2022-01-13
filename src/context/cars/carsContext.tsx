@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect, useMemo } from 'react';
 import { InitialState, CarsContextState, DispatchActions } from './cars.types';
-import { addCar, initCars, removeCar, setCars } from './carsActions';
+import { addCar, editCar, initCars, removeCar, setCars } from './carsActions';
 import carDataReducer from './carsReducer';
 import {
     saveToLocalStorage,
@@ -27,6 +27,9 @@ const CarContextProvider = ({ children }: { children: React.ReactNode }) => {
         () => ({
             addCar: (car) => {
                 dispatch(addCar(car));
+            },
+            editCar: (car) => {
+                dispatch(editCar(car));
             },
             setCars: (cars) => {
                 dispatch(setCars(cars));
