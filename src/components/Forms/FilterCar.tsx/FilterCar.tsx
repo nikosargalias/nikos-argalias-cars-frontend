@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useMemo } from 'react';
-import { fetchCars } from '../../../utils/fetchCars';
 import { CarsContext } from '../../../context/cars/carsContext';
 import { DropDown } from '../../DropDown/DropDown';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,50 +6,42 @@ import CustomStyledContainer from './FilterCar.styled';
 import { FiltersContext } from '../../../context/filters/filtersContext';
 
 const FilterCar = () => {
-    const {
-        cachedCars,
-        actions: { setCars },
-    } = useContext(CarsContext);
-
-    const { setFilter } = useContext(FiltersContext);
+    const { cachedCars } = useContext(CarsContext);
+    const { actions } = useContext(FiltersContext);
+    const viewAllCars = useMemo(() => 'View all cars', []);
 
     const carOptions = useMemo(() => {
-        /**The following code neds to conver the array into a set in order to remove duplicates, then convert it back into the data structure the Dropdown component expects */
-        const carMakes = cachedCars.map(({ Make }) => Make);
-        carMakes.unshift('View All Cars');
+        /**The following code neds to convert the array into a set in order to remove duplicates, then convert it back into the data structure the Dropdown component expects */
+        const carMakes = cachedCars.map(({ make }) => make);
+        carMakes.unshift(viewAllCars);
         const carOptions = Array.from(new Set(carMakes)).map((option) => ({
             label: option,
         }));
 
         return carOptions;
-    }, [cachedCars]);
+    }, [cachedCars, viewAllCars]);
 
     const sortOptions = useMemo(
         () => [{ label: 'Make' }, { label: 'Date' }],
         []
     );
 
-    const handleSelectCar = useCallback(
-        async (carMake: string) => {
-            const carIndex = cachedCars.findIndex(
-                (car) => car.Make === carMake
-            );
-
-            if (carIndex > -1) {
-                const filteredCars = await fetchCars(carMake);
-                setCars(filteredCars);
+    const handleSetMakeFilter = useCallback(
+        (carMake: string) => {
+            if (carMake === viewAllCars) {
+                actions.setMake('');
             } else {
-                setCars(cachedCars);
+                actions.setMake(carMake);
             }
         },
-        [cachedCars, setCars]
+        [actions, viewAllCars]
     );
 
     const handleSetSortFilter = useCallback(
         (filter) => {
-            setFilter(filter.toLowerCase());
+            actions.setSort(filter.toLowerCase());
         },
-        [setFilter]
+        [actions]
     );
 
     const filterLabelId = useMemo(() => uuidv4(), []);
@@ -64,7 +55,7 @@ const FilterCar = () => {
                     message='Filter by car make'
                     options={carOptions}
                     id={filterLabelId}
-                    onChange={handleSelectCar}
+                    onChange={handleSetMakeFilter}
                 />
             </div>
             <div>
