@@ -7,7 +7,7 @@ export const addPhoneticWordsToCars = async (
 ) => {
     (async () => {
         const carsWithPhoneticWordsPromise = cars.map((car) => {
-            return fetchPhoneticWords(car.Model).then((data) => {
+            return fetchPhoneticWords(car.model).then((data) => {
                 return { ...car, phonetic: data[0].word };
             });
         });
